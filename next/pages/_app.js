@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true
 // Create a client
 const queryClient = new QueryClient()
 
+
 function MyApp({ Component, pageProps }) {
   return (
     <>

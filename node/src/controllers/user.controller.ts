@@ -90,7 +90,6 @@ export const resetPasswordHandler: RequestHandler<
   user.passwordResetTokenExpires = undefined
   user.password = password
   await user.save()
-  console.log({ user })
 
   await redis.del(`user:${user._id}`)
 
@@ -227,7 +226,6 @@ export const addToCartHandler: RequestHandler<
     },
     { new: true, runValidators: true }
   ).lean()
-  console.log(game)
 
   return res.sendStatus(200)
 }

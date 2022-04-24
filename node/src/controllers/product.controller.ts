@@ -33,7 +33,6 @@ export const createProductHandler: RequestHandler<
     categories,
     createdBy: res.locals.user._id,
   })
-  console.log(newProduct)
 
   return res.status(201).json({ product: newProduct })
 }
@@ -57,7 +56,7 @@ export const uploadImageHandler: RequestHandler<
     const fileName = `${nanoid()}.jpeg`
     images.push(fileName)
     await sharp(file.buffer)
-      .resize(600, 600, { fit: 'cover' })
+      .resize(640, 480, { fit: 'cover' })
       .toFormat('jpeg')
       .jpeg()
       .toFile(path.join(__dirname, '..', 'public', 'images', fileName))
@@ -76,7 +75,6 @@ export const getAllProductHandler: RequestHandler<
   GetAllProductInput
 > = async (req, res, next) => {
   const { page, perPage, search } = req.query
-  console.log(req.query)
 
   const MAX_PER_PAGE = 30
 
@@ -116,10 +114,6 @@ export const deleteProductHandler: RequestHandler<
   const products = await ProductModel.findById(id)
 
   if (!products) return next(new createHttpError.NotFound('Product not found'))
-  console.log({
-    products: products.createdBy,
-    id: new mongoose.Types.ObjectId(res.locals.user._id),
-  })
 
   if (products.createdBy?.toString() !== res.locals.user._id)
     return next(
@@ -159,7 +153,7 @@ export const getCarouselImagesHandler: RequestHandler = async (
 export const getBestSellersHandler: RequestHandler = async (req, res, next) => {
   const products = await ProductModel.find({})
     .sort({ soldCount: 1 })
-    .limit(6)
+    .limit(8)
     .lean()
 
   return res.status(200).json({ products })

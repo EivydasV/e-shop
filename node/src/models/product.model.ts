@@ -21,12 +21,7 @@ export enum Categories {
   PUZZLE = 'puzzle',
   STRATEGY = 'strategy',
 }
-@Pre<Product>('validate', function (next) {
-  this.slug = slugify(this.title)
-  // console.log(this.slug)
 
-  next()
-})
 @ModelOptions({
   schemaOptions: {
     toJSON: { getters: true },
@@ -61,15 +56,6 @@ export class Product extends PaginatedModel {
 
   @Prop({ required: true })
   trailer!: string
-
-  @Prop({
-    trim: true,
-    required: true,
-    // index: true,
-    unique: true,
-    validate: [validator.isSlug, 'Invalid slug'],
-  })
-  slug!: string
 
   @Prop({
     type: [String],

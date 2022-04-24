@@ -27,10 +27,12 @@ function MyApp({ Component, pageProps }) {
           <AuthProvider>
             <CssBaseline />
             <Header />
-            <div className='mx-4 md:mx-10 flex flex-col gap-4'>
+            <div className='mx-4 md:mx-10 flex flex-col gap-4 min-h-screen'>
               <Component {...pageProps} />
-              <div className='min-h-screen'></div>
             </div>
+            <footer className='mt-6 text-center p-3 bg-slate-800'>
+              @Copyright
+            </footer>
           </AuthProvider>
         </QueryClientProvider>
       </ThemeProvider>

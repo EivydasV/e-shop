@@ -24,8 +24,10 @@ export default function UserPopover() {
     },
   })
 
-  const { data, isLoading } = useQuery('get-cart', () =>
-    axios.get('user/get-cart')
+  const { data, isLoading } = useQuery(
+    'get-cart',
+    () => axios.get('user/get-cart'),
+    { retry: false }
   )
   return (
     <Menu as='div' className='inline-block text-left z-10'>
@@ -45,7 +47,7 @@ export default function UserPopover() {
       >
         <Menu.Items className='absolute right-0 w-56 mt-2 origin-top-right bg-slate-900/95 border  border-white/10 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='px-1 py-1 z-10'>
-            <Link href='/user'>
+            {/* <Link href='/user'>
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -58,7 +60,7 @@ export default function UserPopover() {
                   </button>
                 )}
               </Menu.Item>
-            </Link>
+            </Link> */}
 
             <Link href='/user/cart'>
               <Menu.Item>
@@ -70,7 +72,7 @@ export default function UserPopover() {
                   >
                     <IoCartSharp />
                     Cart
-                    {!isLoading && data.data.cart.length > 0 && (
+                    {!isLoading && data?.data?.cart?.length > 0 && (
                       <span className='inline-flex ml-auto items-center justify-center px-[6px] py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-sky-500 rounded-full shadow shadow-sky-500/50'>
                         {data.data.cart.length}
                       </span>

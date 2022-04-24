@@ -60,7 +60,7 @@ export default function GameId() {
             <p className='text-2xl'>
               Uploaded by -{' '}
               <span className='uppercase text-2xl font-semibold'>
-                {game.createdBy.firstName}
+                {game.createdBy?.firstName || 'unknown'}
               </span>
             </p>
           </div>
